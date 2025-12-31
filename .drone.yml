@@ -15,4 +15,3 @@ steps:
   - sleep 2
   - echo "Done"
   - uname -a
-  - docker info
