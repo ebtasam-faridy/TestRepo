@@ -10,6 +10,7 @@ platform:
 services:
   - name: mongo
     image: mongo:6
+    command: ["--bind_ip_all"]
     ports:
       - 27017
 
@@ -18,10 +19,13 @@ steps:
     image: mongo:6
     commands:
       - |
-        for i in {1..20}; do
-          mongosh --host mongo --eval "db.runCommand({ ping: 1 })" && break
-          sleep 2
+        echo "Waiting for MongoDB to be ready..."
+        for i in $(seq 1 40); do
+          mongosh --host mongo --eval "db.adminCommand('ping')" >/dev/null 2>&1 && break
+          echo "Mongo not ready yet..."
+          sleep 3
         done
+        echo "Mongo is ready!"
 
   - name: build-and-test
     image: golang:1.22
@@ -29,6 +33,10 @@ steps:
       MONGO_URI: mongodb://mongo:27017
     commands:
       - go version
+
+      # 🔁 Change version here to repro issue
+      - go get github.com/docker/go-units@v0.5.0
       - go mod tidy
+
       - go build ./...
       - go test -v ./...
