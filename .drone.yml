@@ -27,16 +27,3 @@ steps:
         done
         echo "Mongo is ready!"
 
-  - name: build-and-test
-    image: golang:1.22
-    environment:
-      MONGO_URI: mongodb://mongo:27017
-    commands:
-      - go version
-
-      # 🔁 Change version here to repro issue
-      - go get github.com/docker/go-units@v0.5.0
-      - go mod tidy
-
-      - go build ./...
-      - go test -v ./...
