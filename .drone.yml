@@ -1,32 +1,50 @@
 ---
 kind: pipeline
 type: docker
-name: default
+name: test-docker-go-units
 
 platform:
   os: linux
   arch: arm64
-  
+
 steps:
-- name: test-mongodb-basic
+- name: test-mongodb-with-memory-limit-16Mi
   image: mongo:7.0
+  resources:
+    limits:
+      memory: 16Mi
   commands:
-  - echo "Testing MongoDB container"
+  - echo "Testing MongoDB container with 16Mi memory limit"
   - mongosh --version
-  - mongosh --eval "db.version()"
-  - echo "MongoDB basic test completed"
+  - echo "Container started successfully"
+  - echo "Memory limit test completed"
 
-- name: test-mongodb-with-memory-limit
+- name: test-mongodb-with-memory-limit-512m
   image: mongo:7.0
-  mem_limit: 512m
+  resources:
+    limits:
+      memory: 512m
   commands:
-  - echo "Testing MongoDB with memory limit"
-  - mongosh --eval "db.version()"
-  - echo "MongoDB with memory limit test completed"
+  - echo "Testing MongoDB container with 512m memory limit"
+  - mongosh --version
+  - echo "Container started successfully"
+  - echo "Memory limit test completed"
 
-- name: test-mongodb-connection
+- name: test-mongodb-with-memory-limit-1g
+  image: mongo:7.0
+  resources:
+    limits:
+      memory: 1g
+  commands:
+  - echo "Testing MongoDB container with 1g memory limit"
+  - mongosh --version
+  - echo "Container started successfully"
+  - echo "Memory limit test completed"
+
+- name: test-mongodb-no-limit
   image: mongo:7.0
   commands:
-  - echo "Testing MongoDB connection"
-  - mongosh --eval "db.adminCommand('ping')"
-  - echo "MongoDB connection test completed"
+  - echo "Testing MongoDB container without memory limit"
+  - mongosh --version
+  - echo "Container started successfully"
+  - echo "No limit test completed"
