@@ -12,7 +12,7 @@ steps:
   image: mongo:7.0
   resources:
     limits:
-      memory: 16MB
+      memory: 16Mi
   commands:
   - echo "Testing MongoDB container with 16MB memory limit"
   - mongosh --version
