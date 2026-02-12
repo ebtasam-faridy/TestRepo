@@ -14,7 +14,7 @@ steps:
     limits:
       memory: 16Mi
   commands:
-  - echo "Testing MongoDB container with 16MB memory limit"
+  - echo "Testing MongoDB container with 16Mi memory limit"
   - mongosh --version
   - echo "Container started successfully"
   - echo "Memory limit test completed"
