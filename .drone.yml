@@ -8,24 +8,27 @@ platform:
   arch: arm64
 
 services:
-- name: mongodb
-  image: mongo:7.0
-  resources:
-    limits:
-      memory: 512m
-  environment:
-    MONGO_INITDB_ROOT_USERNAME: admin
-    MONGO_INITDB_ROOT_PASSWORD: password
-  commands:
-  - mongod --bind_ip_all
+  - name: mongo
+    image: mongo:6
+    ports:
+      - 27017
 
 steps:
-- name: connect-to-mongodb
-  image: mongo:7.0
-  commands:
-  - echo "Waiting for MongoDB service to be ready..."
-  - sleep 10
-  - echo "Testing MongoDB connection..."
-  - mongosh mongodb://admin:password@mongodb:27017/admin --eval "db.version()"
-  - echo "MongoDB connection test successful"
-  - echo "Test completed"
+  - name: wait-for-mongo
+    image: mongo:6
+    commands:
+      - |
+        for i in {1..20}; do
+          mongosh --host mongo --eval "db.runCommand({ ping: 1 })" && break
+          sleep 2
+        done
+
+  - name: build-and-test
+    image: golang:1.22
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+    commands:
+      - go version
+      - go mod tidy
+      - go build ./...
+      - go test -v ./...
