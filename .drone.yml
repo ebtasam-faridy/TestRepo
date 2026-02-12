@@ -8,11 +8,25 @@ platform:
   arch: arm64
   
 steps:
-- name: another
-  image: docker
+- name: test-mongodb-basic
+  image: mongo:7.0
   commands:
-  - echo "Hellos"
-  - sleep 2
-  - echo "Done"
-  - uname -a
-  - ls -la
+  - echo "Testing MongoDB container"
+  - mongosh --version
+  - mongosh --eval "db.version()"
+  - echo "MongoDB basic test completed"
+
+- name: test-mongodb-with-memory-limit
+  image: mongo:7.0
+  mem_limit: 512m
+  commands:
+  - echo "Testing MongoDB with memory limit"
+  - mongosh --eval "db.version()"
+  - echo "MongoDB with memory limit test completed"
+
+- name: test-mongodb-connection
+  image: mongo:7.0
+  commands:
+  - echo "Testing MongoDB connection"
+  - mongosh --eval "db.adminCommand('ping')"
+  - echo "MongoDB connection test completed"
