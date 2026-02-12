@@ -1,51 +1,31 @@
 ---
 kind: pipeline
 type: docker
-name: test-docker-go-units
+name: mongodb-service-test
 
 platform:
   os: linux
   arch: arm64
 
-steps:
-- name: test-mongodb-with-memory-limit-16MB
-  image: mongo:7.0
-  resources:
-    limits:
-      memory: 16MB
-  commands:
-  - echo "Testing MongoDB container with 16MB memory limit"
-  - mongosh --version
-  - echo "Container started successfully"
-  - echo "Memory limit test completed"
-
-- name: test-mongodb-with-memory-limit-512m
+services:
+- name: mongodb
   image: mongo:7.0
   resources:
     limits:
       memory: 512m
+  environment:
+    MONGO_INITDB_ROOT_USERNAME: admin
+    MONGO_INITDB_ROOT_PASSWORD: password
   commands:
-  - echo "Testing MongoDB container with 512m memory limit"
-  - mongosh --version
-  - echo "Container started successfully"
-  - echo "Memory limit test completed"
+  - mongod --bind_ip_all
 
-- name: test-mongodb-with-memory-limit-1g
-  image: mongo:7.0
-  resources:
-    limits:
-      memory: 1g
-  commands:
-  - echo "Testing MongoDB container with 1g memory limit"
-  - mongosh --version
-  - echo "Container started successfully"
-  - echo "Memory limit test completed"
-
-- name: test-mongodb-no-limit
+steps:
+- name: connect-to-mongodb
   image: mongo:7.0
   commands:
-  - echo "Testing MongoDB container without memory limit"
-  - mongosh --version
-  - echo "Container started successfully"
-  - echo "No limit test completed"
-
+  - echo "Waiting for MongoDB service to be ready..."
+  - sleep 10
+  - echo "Testing MongoDB connection..."
+  - mongosh mongodb://admin:password@mongodb:27017/admin --eval "db.version()"
+  - echo "MongoDB connection test successful"
+  - echo "Test completed"
