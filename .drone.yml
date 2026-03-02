@@ -11,6 +11,7 @@ steps:
 - name: another
   image: node:18
   commands:
+  - |
   - echo "Hellos"
   # Setup flat HAR registry
   - export CI_NPM_TOKEN="pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd"
