@@ -14,8 +14,8 @@ steps:
   - echo "Hellos"
   - echo "=== Starting test ==="
   # Setup .npmrc with HAR flat repository
-  - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
-  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
+  - echo "registry=https://pkg.harness.io/pkg/9uuuflwaq-6zowvbg7qtlq/npm/npm/" > .npmrc
+  - echo "//pkg.harness.io/pkg/9uuuflwaq-6zowvbg7qtlq/npm/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
 
   # Show .npmrc content for clarity
   - cat .npmrc
