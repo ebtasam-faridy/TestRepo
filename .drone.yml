@@ -12,7 +12,10 @@ steps:
   image: node:18
   commands:
   - echo "Hellos"
-  - echo "registry=https://registry.npmjs.org/" > .npmrc
-  - echo "@shipt:registry=https://pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/" >> .npmrc
-  - echo "//pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/:_authToken=test" >> .npmrc
-  - npm ci
+  # Setup flat HAR registry
+  - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
+  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=${CI_NPM_TOKEN}" >> .npmrc
+  # Install the package from HAR
+  - npm install test-package@0.0.1
+  # Verify installation
+  - node -e "console.log('test-package installed successfully')"
