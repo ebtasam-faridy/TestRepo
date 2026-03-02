@@ -13,11 +13,9 @@ steps:
   commands:
   - |
   - echo "Hellos"
-  # Setup flat HAR registry
-  - CI_NPM_TOKEN="pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd"
+  # Setup flat HAR registr
+  
   - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
-  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=${CI_NPM_TOKEN}" >> .npmrc
-  # Install the package from HAR
-  - npm install test-package@0.0.1
-  # Verify installation
+  - echo "//pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
+  - npm ci
   - node -e "console.log('test-package installed successfully')"
