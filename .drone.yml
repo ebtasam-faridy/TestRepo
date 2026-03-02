@@ -5,13 +5,23 @@ name: default
 
 platform:
   os: linux
-  arch: arm64
-  
+  arch: amd64
+
 steps:
-- name: npm-install
-  image: node:18
-  commands:
-  - echo "registry=https://registry.npmjs.org/" > .npmrc
-  - echo "@shipt:registry=https://pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/" >> .npmrc
-  - echo "//pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/:_authToken=${CI_NPM_TOKEN}" >> .npmrc
-  - npm ci
+  - name: install
+    image: node:18
+    environment:
+      CI_NPM_TOKEN:
+        from_secret: pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd
+    commands:
+      - echo "Setting up .npmrc for HAR"
+      - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
+      - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=${CI_NPM_TOKEN}" >> .npmrc
+      - npm ci
+
+  - name: test
+    image: node:18
+    commands:
+      - npm run test
+    depends_on:
+      - install
