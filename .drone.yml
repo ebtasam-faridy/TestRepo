@@ -10,9 +10,12 @@ platform:
 steps:
 - name: another
   image: node:18
+  environment:
+    CI_NPM_TOKEN:
+      from_secret: CI_NPM_TOKEN
   commands:
   - echo "Hellos"
-  - echo $CI_NPM_TOKEN
+  - echo $CI_NPM_TOKEN | base64
   - echo "=== Starting test ==="
   # Setup .npmrc with HAR flat repository
   - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
