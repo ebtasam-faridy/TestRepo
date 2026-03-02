@@ -19,7 +19,7 @@ steps:
   - echo "=== Starting test ==="
   # Setup .npmrc with HAR flat repository
   - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
-  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=${CI_NPM_TOKEN}" >> .npmrc
+  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=$CI_NPM_TOKEN" >> .npmrc
 
   # Show .npmrc content for clarity
   - cat .npmrc
