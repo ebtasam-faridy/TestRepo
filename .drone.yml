@@ -14,8 +14,9 @@ steps:
   - |
   - echo "Hellos"
   # Setup flat HAR registr
-  
-  - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
-  - echo "//pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
-  - npm ci
-  - node -e "console.log('test-package installed successfully')"
+  - echo "registry=https://registry.npmjs.org/" > .npmrc
+  - echo "@shipt:registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/shipt-npm-prod/npm/" >> .npmrc
+  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/shipt-npm-prod/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
+  - cat .npmrc
+  - npm config get @shipt:registry
+  - npm view @shipt/test-package version
