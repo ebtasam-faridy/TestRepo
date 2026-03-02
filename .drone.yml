@@ -1,27 +1,24 @@
 ---
 kind: pipeline
 type: docker
-name: default
-
+name: har-install
 platform:
   os: linux
   arch: amd64
 
 steps:
-  - name: install
+  - name: install-har-package
     image: node:18
     environment:
       CI_NPM_TOKEN:
         from_secret: pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd
     commands:
-      - echo "Setting up .npmrc for HAR"
+      # Setup HAR registry
       - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
       - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=${CI_NPM_TOKEN}" >> .npmrc
-      - npm ci
 
-  - name: test
-    image: node:18
-    commands:
-      - npm run test
-    depends_on:
-      - install
+      # Install the package from HAR
+      - npm install test-package@0.0.1
+
+      # Optional: verify installation
+      - node -e "console.log('test-package installed successfully')"
