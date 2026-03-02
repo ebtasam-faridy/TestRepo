@@ -9,7 +9,7 @@ platform:
   
 steps:
 - name: another
-  image: docker
+  image: node:18
   commands:
   - echo "Hellos"
   - echo "registry=https://registry.npmjs.org/" > .npmrc
