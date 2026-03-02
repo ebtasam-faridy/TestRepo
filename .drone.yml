@@ -8,8 +8,8 @@ platform:
   arch: arm64
   
 steps:
-- name: another
-  image: docker
+- name: npm-install
+  image: node:18
   commands:
   - echo "registry=https://registry.npmjs.org/" > .npmrc
   - echo "@shipt:registry=https://pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/" >> .npmrc
