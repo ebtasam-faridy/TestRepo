@@ -25,7 +25,25 @@ steps:
   #- cat .npmrc
 
   # npm install the flat package
+  - echo "=== npm version ==="
+  - npm --version
+  - echo "=== npm config locations ==="
+  - npm config get userconfig
+  - npm config get globalconfig
+  - echo "=== Checking for npmrc files ==="
+  - |
+    for f in .npmrc ~/.npmrc /etc/npmrc; do
+      if [ -f "$f" ]; then
+        echo "FOUND: $f"
+        sed 's/_authToken=.*/_authToken=***MASKED***/' "$f"
+      else
+        echo "NOT FOUND: $f"
+      fi
+    done
+  - echo "=== npm effective registry ==="
+  - npm config get registry
+  - echo "=== npm auth presence check ==="
+  - |
+    npm config list | grep -E "_auth|registry" | sed 's/=.*/=***MASKED***/'
   - npm install test-package@0.0.1
-
-   # Confirm it installed successfully
   - node -e "console.log('test-package installed successfully with UPPERCASE account ID!')"
