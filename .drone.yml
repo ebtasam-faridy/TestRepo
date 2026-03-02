@@ -12,8 +12,16 @@ steps:
   image: node:18
   commands:
   - echo "Hellos"
-  # Setup flat HAR registry
-  - echo "registry=https://registry.npmjs.org/" > .npmrc
-  - echo "@shipt:registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/shipt-npm-prod/npm/" >> .npmrc
-  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/shipt-npm-prod/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
-  - npm view @shipt/test-package version
+  - echo "=== Starting test ==="
+  # Setup .npmrc with HAR flat repository
+  - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
+  - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
+
+  # Show .npmrc content for clarity
+  - cat .npmrc
+
+  # npm install the flat package
+  - npm install test-package@0.0.1
+
+   # Confirm it installed successfully
+  - node -e "console.log('test-package installed successfully with UPPERCASE account ID!')"
