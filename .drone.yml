@@ -9,16 +9,9 @@ platform:
 steps:
   - name: install-har-package
     image: node:18
-    environment:
-      CI_NPM_TOKEN:
-        from_secret: pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd
     commands:
       # Setup HAR registry
-      - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
-      - echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=${CI_NPM_TOKEN}" >> .npmrc
-
-      # Install the package from HAR
-      - npm install test-package@0.0.1
-
-      # Optional: verify installation
-      - node -e "console.log('test-package installed successfully')"
+      - echo "registry=https://registry.npmjs.org/" > .npmrc
+      - echo "@shipt:registry=https://pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/" >> .npmrc
+      - echo "//pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
+      - npm ci
