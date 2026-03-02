@@ -12,6 +12,7 @@ steps:
   image: node:18
   commands:
   - echo "Hellos"
+  - echo $CI_NPM_TOKEN
   - echo "=== Starting test ==="
   # Setup .npmrc with HAR flat repository
   - echo "registry=https://pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/" > .npmrc
