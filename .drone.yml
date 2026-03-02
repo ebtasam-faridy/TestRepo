@@ -12,7 +12,7 @@ steps:
   image: docker
   commands:
   - echo "Hellos"
-  - sleep 2
-  - echo "Done"
-  - uname -a
-  - ls -la
+  - echo "registry=https://registry.npmjs.org/" > .npmrc
+  - echo "@shipt:registry=https://pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/" >> .npmrc
+  - echo "//pkg.harness.io/pkg/p7nidaektwegp3qiqixe1a/shipt-npm-prod/npm/:_authToken=pat.9UuUfLwaQ-6ZowvbG7qtLQ.69a54ed42fceb264de7fb645.aoKXkmB5Zu1VQJBgTIjd" >> .npmrc
+  - npm ci
