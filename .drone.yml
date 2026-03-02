@@ -22,7 +22,7 @@ steps:
   #- echo "//pkg.harness.io/pkg/9UuUfLwaQ-6ZowvbG7qtLQ/npm/npm/:_authToken=$CI_NPM_TOKEN" >> .npmrc
 
   # Show .npmrc content for clarity
-  - cat .npmrc
+  #- cat .npmrc
 
   # npm install the flat package
   - npm install test-package@0.0.1
