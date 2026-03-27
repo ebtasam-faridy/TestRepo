@@ -13,6 +13,6 @@ steps:
   commands:
   - echo "Hellos"
   - sleep 2
-  - echo "Done"
+  - echo "Done scm-go version update validation test"
   - uname -a
   - ls -la
