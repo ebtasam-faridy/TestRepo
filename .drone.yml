@@ -11,7 +11,7 @@ steps:
 - name: another
   image: docker
   commands:
-  - echo "Hellos"
+  - echo "Hellos team"
   - echo "Done scm-go version update validation test"
   - uname -a
   - ls -la
